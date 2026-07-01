@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="580.0" styleClass="kontejner" stylesheets="@../../../../resources/style/Dijalog.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.controller.PregledTerminal">
+   <children>
+      <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="580.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="320.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="560.0">
+               <children>
+                  <Label styleClass="labelaNaslov" text="Pregled" textFill="#2b89ae">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox fx:id="hbKontejnerTabela" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="560.0" GridPane.rowIndex="1">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="560.0" vbarPolicy="NEVER">
+                     <content>
+                        <TableView fx:id="tvKorisnici" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="560.0">
+                           <columns>
+                              <TableColumn fx:id="tcRedniBroj" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="Id prolaza" />
+                              <TableColumn fx:id="tcTipProlaza" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="160.0" text="Tip prolaza" />
+                              <TableColumn fx:id="tcTipKontrole" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="160.0" text="Tip kontrole" />
+                              <TableColumn fx:id="tcImeKorisnika" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="162.0" text="Ime korisnika" />
+                           </columns>
+                        </TableView>
+                     </content>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ScrollPane>
+               </children></HBox>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="560.0" spacing="35.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+               <children>
+                  <Button fx:id="btnOk" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#potvrdi" prefHeight="45.0" prefWidth="80.0" styleClass="btnPrihvati" text="Zatvori" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>

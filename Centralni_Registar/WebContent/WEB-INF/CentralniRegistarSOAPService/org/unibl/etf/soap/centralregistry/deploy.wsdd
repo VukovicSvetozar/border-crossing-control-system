@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CentralniRegistarSOAPService WSDL service -->
+
+  <service name="CentralniRegistarSOAP" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://centralregistry.soap.etf.unibl.org"/>
+      <parameter name="wsdlServiceElement" value="CentralniRegistarSOAPService"/>
+      <parameter name="schemaQualified" value="http://centralregistry.soap.etf.unibl.org,http://model.etf.unibl.org"/>
+      <parameter name="wsdlServicePort" value="CentralniRegistarSOAP"/>
+      <parameter name="className" value="org.unibl.etf.soap.centralregistry.CentralniRegistarSOAP"/>
+      <parameter name="wsdlPortType" value="CentralniRegistarSOAP"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="terminal" qname="operNS:terminal" returnQName="retNS:terminalReturn" returnType="rtns:TerminalDTO" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" name="evidentirajProlazak" qname="operNS:evidentirajProlazak" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:prolazak" type="tns:ProlazakDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" name="evidentirajPotjernicu" qname="operNS:evidentirajPotjernicu" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:prolazak" type="tns:ProlazakDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" name="evidentirajDokumente" qname="operNS:evidentirajDokumente" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:prolazak" type="tns:ProlazakDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="obrisiTerminal" qname="operNS:obrisiTerminal" returnQName="retNS:obrisiTerminalReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="izmjeniTerminal" qname="operNS:izmjeniTerminal" returnQName="retNS:izmjeniTerminalReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:terminal" type="tns:TerminalDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="provjeriTerminal" qname="operNS:provjeriTerminal" returnQName="retNS:provjeriTerminalReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nazivTeminala" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="terminali" qname="operNS:terminali" returnQName="retNS:terminaliReturn" returnType="rtns:TerminalDTO" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" name="dodajTerminal" qname="operNS:dodajTerminal" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:terminal" type="tns:TerminalDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="prolazi" qname="operNS:prolazi" returnQName="retNS:prolaziReturn" returnType="rtns:ProlazDTO" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="aktivanProlaz" qname="operNS:aktivanProlaz" returnQName="retNS:aktivanProlazReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idProlaz" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" xmlns:retNS="http://centralregistry.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="korisnici" qname="operNS:korisnici" returnQName="retNS:korisniciReturn" returnType="rtns:KorisnikDTO" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://centralregistry.soap.etf.unibl.org" name="postaviStatus" qname="operNS:postaviStatus" soapAction="">
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:korisnickoIme" type="tns:string"/>
+        <parameter xmlns:pns="http://centralregistry.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:aktivan" type="tns:boolean"/>
+      </operation>
+      <parameter name="allowedMethods" value="prolazi obrisiTerminal provjeriTerminal korisnici terminal evidentirajPotjernicu evidentirajDokumente postaviStatus aktivanProlaz evidentirajProlazak terminali dodajTerminal izmjeniTerminal"/>
+
+      <arrayMapping xmlns:ns="http://centralregistry.soap.etf.unibl.org" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.etf.unibl.org" qname="ns:KorisnikDTO" type="java:org.unibl.etf.model.KorisnikDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.etf.unibl.org" qname="ns:ProlazakDTO" type="java:org.unibl.etf.model.ProlazakDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.etf.unibl.org" qname="ns:ProlazDTO" type="java:org.unibl.etf.model.ProlazDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://centralregistry.soap.etf.unibl.org" xmlns:cmp-ns="http://model.etf.unibl.org" qname="ns:ArrayOf_tns1_KorisnikDTO" type="java:org.unibl.etf.model.KorisnikDTO[]" innerType="cmp-ns:KorisnikDTO" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.etf.unibl.org" qname="ns:TerminalDTO" type="java:org.unibl.etf.model.TerminalDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://centralregistry.soap.etf.unibl.org" xmlns:cmp-ns="http://model.etf.unibl.org" qname="ns:ArrayOf_tns1_ProlazDTO" type="java:org.unibl.etf.model.ProlazDTO[]" innerType="cmp-ns:ProlazDTO" encodingStyle=""/>
+  </service>
+</deployment>

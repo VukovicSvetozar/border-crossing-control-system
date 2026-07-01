@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+ <object class="org.unibl.etf.model.ProlazakDTO">
+  <void property="id">
+   <string>001#101#2022_11_24T18_52_04#2</string>
+  </void>
+  <void property="idOsoba">
+   <string>323</string>
+  </void>
+  <void property="informacije">
+   <string>			323
+
+18:52:04 2022-11-24
+		POLICIJSKA_KONTROLA
+18:52:06 2022-11-24
+		NIJE_NA_POTJERNICI
+18:52:11 2022-11-24
+		DOKUMENTACIJA
+18:55:02 2022-11-24
+		ZAVRSEN
+</string>
+  </void>
+  <void property="odabraniFajlovi">
+   <array class="java.lang.String" length="0"/>
+  </void>
+  <void property="status">
+   <string>ZAVRSEN</string>
+  </void>
+ </object>
+</java>

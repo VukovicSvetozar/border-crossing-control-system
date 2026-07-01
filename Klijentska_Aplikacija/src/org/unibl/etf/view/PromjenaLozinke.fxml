@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="700.0" styleClass="kontejner" stylesheets="@../../../../resources/style/Dijalog.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.unibl.etf.controller.PromjenaLozinke">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="labelaNaslov" text="Promjena lozinke" textFill="#b53b3b">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="390.0" spacing="40.0">
+         <children>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label styleClass="labelaOznaka" text="Stara lozinka:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="pfStaraLozinka" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" promptText="lozinka">
+                     <font>
+                        <Font name="System Italic" size="32.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label styleClass="labelaOznaka" text="Nova lozinka:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="pfNovaLozinka" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" promptText="lozinka">
+                     <font>
+                        <Font name="System Italic" size="32.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Label styleClass="labelaOznaka" text="Ponovi unos: ">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="pfPotvrdaLozinke" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" promptText="lozinka">
+                     <font>
+                        <Font name="System Italic" size="32.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="150.0" spacing="60.0">
+         <children>
+            <Button fx:id="btnPromjeni" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#promjena" prefHeight="85.0" prefWidth="175.0" styleClass="btnPromjeni" text="Promjeni" textAlignment="CENTER" textFill="#855e11">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnIzlaz" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#odustani" prefHeight="85.0" prefWidth="175.0" styleClass="btnIzadji" text="Odustani" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://transit.soap.etf.unibl.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://transit.soap.etf.unibl.org" xmlns:intf="http://transit.soap.etf.unibl.org" xmlns:tns1="http://model.etf.unibl.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://transit.soap.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.etf.unibl.org"/>
+   <element name="dodajProlazak">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="prolazak" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="dodajProlazakResponse">
+    <complexType/>
+   </element>
+   <element name="azurirajProlazak">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="prolazak" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="azurirajProlazakResponse">
+    <complexType/>
+   </element>
+   <element name="odjavaKontrole">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="idTerminal" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="odjavaKontroleResponse">
+    <complexType/>
+   </element>
+   <element name="provjeriDostupnost">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeriDostupnostResponse">
+    <complexType>
+     <sequence>
+      <element name="provjeriDostupnostReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="promjeniDostupnost">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+      <element name="status" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="promjeniDostupnostResponse">
+    <complexType/>
+   </element>
+   <element name="provjeriOsobu">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="statusProlaska" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeriOsobuResponse">
+    <complexType>
+     <sequence>
+      <element name="provjeriOsobuReturn" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeraStatusaKontrole">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeraStatusaKontroleResponse">
+    <complexType>
+     <sequence>
+      <element name="provjeraStatusaKontroleReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registracijaKontrole">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="idTerminal" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registracijaKontroleResponse">
+    <complexType>
+     <sequence>
+      <element name="registracijaKontroleReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="azurirajStatusKontrole">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="status" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="azurirajStatusKontroleResponse">
+    <complexType/>
+   </element>
+   <element name="azurirajInformacije">
+    <complexType>
+     <sequence>
+      <element name="idKontrola" type="xsd:string"/>
+      <element name="idProlazak" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="azurirajInformacijeResponse">
+    <complexType>
+     <sequence>
+      <element name="azurirajInformacijeReturn" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://transit.soap.etf.unibl.org"/>
+   <complexType name="ProlazakDTO">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="idOsoba" nillable="true" type="xsd:string"/>
+     <element name="informacije" nillable="true" type="xsd:string"/>
+     <element name="odabraniFajlovi" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="azurirajInformacijeResponse">
+
+      <wsdl:part element="impl:azurirajInformacijeResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="azurirajProlazakResponse">
+
+      <wsdl:part element="impl:azurirajProlazakResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriOsobuRequest">
+
+      <wsdl:part element="impl:provjeriOsobu" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeraStatusaKontroleRequest">
+
+      <wsdl:part element="impl:provjeraStatusaKontrole" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registracijaKontroleRequest">
+
+      <wsdl:part element="impl:registracijaKontrole" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dodajProlazakResponse">
+
+      <wsdl:part element="impl:dodajProlazakResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registracijaKontroleResponse">
+
+      <wsdl:part element="impl:registracijaKontroleResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriDostupnostRequest">
+
+      <wsdl:part element="impl:provjeriDostupnost" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="azurirajStatusKontroleRequest">
+
+      <wsdl:part element="impl:azurirajStatusKontrole" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="odjavaKontroleResponse">
+
+      <wsdl:part element="impl:odjavaKontroleResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dodajProlazakRequest">
+
+      <wsdl:part element="impl:dodajProlazak" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriOsobuResponse">
+
+      <wsdl:part element="impl:provjeriOsobuResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriDostupnostResponse">
+
+      <wsdl:part element="impl:provjeriDostupnostResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="promjeniDostupnostRequest">
+
+      <wsdl:part element="impl:promjeniDostupnost" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="promjeniDostupnostResponse">
+
+      <wsdl:part element="impl:promjeniDostupnostResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="odjavaKontroleRequest">
+
+      <wsdl:part element="impl:odjavaKontrole" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeraStatusaKontroleResponse">
+
+      <wsdl:part element="impl:provjeraStatusaKontroleResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="azurirajInformacijeRequest">
+
+      <wsdl:part element="impl:azurirajInformacije" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="azurirajStatusKontroleResponse">
+
+      <wsdl:part element="impl:azurirajStatusKontroleResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="azurirajProlazakRequest">
+
+      <wsdl:part element="impl:azurirajProlazak" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="TransitSOAP">
+
+      <wsdl:operation name="dodajProlazak">
+
+         <wsdl:input message="impl:dodajProlazakRequest" name="dodajProlazakRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:dodajProlazakResponse" name="dodajProlazakResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajProlazak">
+
+         <wsdl:input message="impl:azurirajProlazakRequest" name="azurirajProlazakRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:azurirajProlazakResponse" name="azurirajProlazakResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="odjavaKontrole">
+
+         <wsdl:input message="impl:odjavaKontroleRequest" name="odjavaKontroleRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:odjavaKontroleResponse" name="odjavaKontroleResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriDostupnost">
+
+         <wsdl:input message="impl:provjeriDostupnostRequest" name="provjeriDostupnostRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:provjeriDostupnostResponse" name="provjeriDostupnostResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="promjeniDostupnost">
+
+         <wsdl:input message="impl:promjeniDostupnostRequest" name="promjeniDostupnostRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:promjeniDostupnostResponse" name="promjeniDostupnostResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriOsobu">
+
+         <wsdl:input message="impl:provjeriOsobuRequest" name="provjeriOsobuRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:provjeriOsobuResponse" name="provjeriOsobuResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeraStatusaKontrole">
+
+         <wsdl:input message="impl:provjeraStatusaKontroleRequest" name="provjeraStatusaKontroleRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:provjeraStatusaKontroleResponse" name="provjeraStatusaKontroleResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="registracijaKontrole">
+
+         <wsdl:input message="impl:registracijaKontroleRequest" name="registracijaKontroleRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:registracijaKontroleResponse" name="registracijaKontroleResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajStatusKontrole">
+
+         <wsdl:input message="impl:azurirajStatusKontroleRequest" name="azurirajStatusKontroleRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:azurirajStatusKontroleResponse" name="azurirajStatusKontroleResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajInformacije">
+
+         <wsdl:input message="impl:azurirajInformacijeRequest" name="azurirajInformacijeRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:azurirajInformacijeResponse" name="azurirajInformacijeResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TransitSOAPSoapBinding" type="impl:TransitSOAP">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="dodajProlazak">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="dodajProlazakRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="dodajProlazakResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajProlazak">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="azurirajProlazakRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="azurirajProlazakResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="odjavaKontrole">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="odjavaKontroleRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="odjavaKontroleResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriDostupnost">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="provjeriDostupnostRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="provjeriDostupnostResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="promjeniDostupnost">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="promjeniDostupnostRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="promjeniDostupnostResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriOsobu">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="provjeriOsobuRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="provjeriOsobuResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeraStatusaKontrole">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="provjeraStatusaKontroleRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="provjeraStatusaKontroleResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="registracijaKontrole">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="registracijaKontroleRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="registracijaKontroleResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajStatusKontrole">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="azurirajStatusKontroleRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="azurirajStatusKontroleResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="azurirajInformacije">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="azurirajInformacijeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="azurirajInformacijeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TransitSOAPService">
+
+      <wsdl:port binding="impl:TransitSOAPSoapBinding" name="TransitSOAP">
+
+         <wsdlsoap:address location="http://localhost:8080/Prelazak_Granice_Servis/services/TransitSOAP"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TransitSOAPService WSDL service -->
+
+  <service name="TransitSOAP" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://transit.soap.etf.unibl.org"/>
+      <parameter name="wsdlServiceElement" value="TransitSOAPService"/>
+      <parameter name="schemaQualified" value="http://transit.soap.etf.unibl.org,http://model.etf.unibl.org"/>
+      <parameter name="wsdlServicePort" value="TransitSOAP"/>
+      <parameter name="className" value="org.unibl.etf.soap.transit.TransitSOAP"/>
+      <parameter name="wsdlPortType" value="TransitSOAP"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" name="dodajProlazak" qname="operNS:dodajProlazak" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:prolazak" type="tns:ProlazakDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" name="azurirajProlazak" qname="operNS:azurirajProlazak" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://model.etf.unibl.org" qname="pns:prolazak" type="tns:ProlazakDTO"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" name="odjavaKontrole" qname="operNS:odjavaKontrole" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" xmlns:retNS="http://transit.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="provjeriDostupnost" qname="operNS:provjeriDostupnost" returnQName="retNS:provjeriDostupnostReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" name="promjeniDostupnost" qname="operNS:promjeniDostupnost" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:status" type="tns:boolean"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" xmlns:retNS="http://transit.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="provjeriOsobu" qname="operNS:provjeriOsobu" returnQName="retNS:provjeriOsobuReturn" returnType="rtns:ProlazakDTO" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:statusProlaska" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" xmlns:retNS="http://transit.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="provjeraStatusaKontrole" qname="operNS:provjeraStatusaKontrole" returnQName="retNS:provjeraStatusaKontroleReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" xmlns:retNS="http://transit.soap.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="registracijaKontrole" qname="operNS:registracijaKontrole" returnQName="retNS:registracijaKontroleReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" name="azurirajStatusKontrole" qname="operNS:azurirajStatusKontrole" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idTerminal" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:status" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://transit.soap.etf.unibl.org" xmlns:retNS="http://transit.soap.etf.unibl.org" xmlns:rtns="http://model.etf.unibl.org" name="azurirajInformacije" qname="operNS:azurirajInformacije" returnQName="retNS:azurirajInformacijeReturn" returnType="rtns:ProlazakDTO" soapAction="">
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idKontrola" type="tns:string"/>
+        <parameter xmlns:pns="http://transit.soap.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idProlazak" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="azurirajProlazak provjeriOsobu provjeriDostupnost promjeniDostupnost registracijaKontrole dodajProlazak odjavaKontrole azurirajStatusKontrole azurirajInformacije provjeraStatusaKontrole"/>
+
+      <typeMapping xmlns:ns="http://model.etf.unibl.org" qname="ns:ProlazakDTO" type="java:org.unibl.etf.model.ProlazakDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://transit.soap.etf.unibl.org" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+  </service>
+</deployment>

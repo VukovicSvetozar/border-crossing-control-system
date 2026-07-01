@@ -1,0 +1,195 @@
+
+.kontejner {
+    -fx-background-color: linear-gradient(rgb(30.0, 144.0, 255.0) 0.0%, rgb(30.0, 144.0, 255.0) 100.0%),
+    	linear-gradient(rgb(30.0, 144.0, 255.0), rgb(255.0, 255.0, 255.0)),
+    	linear-gradient(rgb(10.0, 10.0, 10.0) 0.0%, rgb(135.0, 206.0, 235.0) 100.0%);
+    -fx-text-fill: #7D78FF; 
+}
+
+.labelaNaslov {
+	-fx-font-weight: bold;
+	-fx-font-style: italic;
+	-fx-text-fill: DarkCyan;
+	-fx-font-size: 24.0px;
+}
+
+.labelaOznaka { 
+	-fx-font-weight: bold;
+	-fx-font-style: italic;
+	-fx-text-fill: MediumTurquoise;
+	-fx-font-size: 20.0px;
+}
+.labelaSvojstvo {
+	-fx-font-weight: bold;
+	-fx-font-style: italic;
+	-fx-text-fill: Teal;
+	-fx-font-size: 18.0px;
+}
+
+.labelaVrijednost {
+	-fx-font-weight: bold;
+	-fx-font-style: italic;
+	-fx-text-fill: MediumTurquoise;
+	-fx-font-size: 12.0px;
+}
+
+.pozadina-gore {
+	-fx-background-color: rgb(100, 152, 173);
+}
+
+.pozadina-dolje {
+	-fx-background-color: rgb(90, 135, 153);
+}
+
+.button {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+	-fx-background-color: linear-gradient(rgb(30.0, 144.0, 255.0) 0.0%, rgb(30.0, 144.0, 255.0) 100.0%),
+    	linear-gradient(rgb(30.0, 144.0, 255.0), rgb(135.0, 206.0, 235.0)),
+    	linear-gradient(rgb(225.0, 255.0, 255.0) 0.0%, rgb(30.0, 144.0, 255.0) 100.0%);
+    -fx-background-insets: 0.0, 1.0, 3.0;
+    -fx-background-radius: 7.0, 8.0, 9.0;
+    -fx-text-fill: rgb(20.0, 70.0, 125.0);
+}
+
+.btnPrihvati {
+    -fx-background-color: linear-gradient(rgb(110.0, 167.0, 191.0) 0.0%, rgb(110.0, 167.0, 191.0) 100.0%),
+    	linear-gradient(rgb(110.0, 167.0, 191.0), rgb(74.0, 110.0, 125.0)),
+    	linear-gradient(rgb(74.0, 110.0, 125.0) 20.0%, rgb(10.0, 10.0, 10.0) 100.0%);
+    -fx-background-insets: 0.0, 1.0, 3.0;
+    -fx-background-radius: 7.0, 8.0, 9.0;
+    -fx-text-fill: LightCyan;
+}
+
+.btnIzvrsi {
+    -fx-background-color: linear-gradient(rgb(110.0, 167.0, 191.0) 0.0%, rgb(110.0, 167.0, 191.0) 100.0%),
+    	linear-gradient(rgb(110.0, 167.0, 191.0), rgb(74.0, 110.0, 125.0)),
+    	linear-gradient(rgb(74.0, 110.0, 125.0) 20.0%, rgb(10.0, 10.0, 10.0) 100.0%);
+    -fx-background-insets: 0.0, 1.0, 3.0;
+    -fx-background-radius: 7.0, 8.0, 9.0;
+    -fx-text-fill: LightCyan;
+}
+
+.btnIzadji {
+     -fx-background-color: linear-gradient(rgb(110.0, 167.0, 191.0) 0.0%, rgb(110.0, 167.0, 191.0) 100.0%),
+    	linear-gradient(rgb(110.0, 167.0, 191.0), rgb(235.0, 206.0, 235.0)),
+    	linear-gradient(rgb(255.0, 216.0, 235.0) 20.0%, rgb(40.0, 40.0, 40.0) 100.0%);
+    -fx-background-insets: 0.0, 1.0, 3.0;
+    -fx-background-radius: 7.0, 8.0, 9.0;
+    -fx-text-fill: LightCyan;
+}
+
+.button:hover {	
+	-fx-background-color: linear-gradient(rgb(30.0, 144.0, 255.0) 0.0%, rgb(30.0, 144.0, 255.0) 100.0%),
+    	linear-gradient(rgb(30.0, 144.0, 255.0), rgb(135.0, 206.0, 235.0)),
+    	linear-gradient(rgb(225.0, 255.0, 255.0) 0.0%, rgb(30.0, 144.0, 255.0) 100.0%);
+    -fx-background-insets: 0.0, 1.0, 3.0;
+    -fx-background-radius: 7.0, 8.0, 9.0;
+    -fx-text-fill: rgb(20.0, 70.0, 125.0);
+}
+
+.text-field {
+    -fx-background-color: LightBlue;
+    -fx-text-fill: DarkSlateGray; 
+    -fx-prompt-text-fill: DarkCyan;
+    -fx-font-weight: bold;
+}
+
+.text-field:focused {
+    -fx-background-color: AntiqueWhite;
+}
+
+.text-area .content {
+    -fx-background-color: PaleTurquoise;
+}
+
+.text-area:focused .content{
+    -fx-background-color: AntiqueWhite;
+}
+
+.tableview {
+	-fx-padding: 10px;
+}
+
+.text-area {
+    -fx-font-weight: bold;
+    -fx-text-fill: DarkCyan;
+    -fx-font-style: italic;
+    -fx-font-size: 12.5;
+}
+
+.table-column {
+	-fx-alignment: center;
+	-fx-font-weight: bold;
+  	-fx-font-style: italic;
+  	-fx-text-fill: DarkCyan;
+}
+
+.table-row-cell {
+  	-fx-control-inner-background: lightcyan ;
+}
+
+.table-row-cell:odd{
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:even{
+    -fx-padding: 0.0em;
+}
+
+.table-view .column-header .label {
+	-fx-background-color: PaleTurquoise;
+    -fx-text-fill: #2b89ae;
+}
+
+.table-row-cell:selected .text {
+       -fx-fill: white;
+}
+
+.table-row-cell .text {
+       -fx-fill: DarkCyan;
+}
+
+.list-cell {
+  	-fx-alignment: center;
+  	-fx-font-weight: bold;
+  	-fx-font-style: italic;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: PaleTurquoise;
+    -fx-text-fill: DarkCyan;
+}
+
+.list-cell:odd{
+	-fx-background-color: MintCream;
+}
+
+.list-cell:even{
+	-fx-background-color: Lightcyan;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: DodgerBlue;
+    -fx-text-fill: white;
+}
+
+.combo-box {
+  -fx-background-color: MintCream;
+  -fx-mark-color: Black;
+}
+
+.combo-box > .label { 
+	-fx-text-fill: Red;
+}
+
+.choice-box {
+  -fx-background-color: MintCream;
+  -fx-mark-color: Black;
+}
+
+
+.choice-box > .label { 
+	-fx-text-fill: Green;
+}

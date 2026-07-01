@@ -1,0 +1,87 @@
+
+# ==========================================
+# Alati, serveri i metapodaci (Korijen)
+# ==========================================
+.metadata/
+RemoteSystemsTempFiles/
+Servers/
+*Tomcat*/
+
+# ==========================================
+# 1. Administratorska_Aplikacija
+# ==========================================
+Administratorska_Aplikacija/build/
+Administratorska_Aplikacija/.settings/
+Administratorska_Aplikacija/.classpath
+Administratorska_Aplikacija/.project
+
+# ==========================================
+# 2. Centralni_Registar
+# ==========================================
+Centralni_Registar/build/
+Centralni_Registar/.settings/
+Centralni_Registar/.classpath
+Centralni_Registar/.project
+
+# ==========================================
+# 3. Chat_Server
+# ==========================================
+Chat_Server/bin/
+Chat_Server/.settings/
+Chat_Server/.classpath
+Chat_Server/.project
+
+# ==========================================
+# 4. File_Server
+# ==========================================
+File_Server/bin/
+File_Server/log/
+File_Server/.settings/
+File_Server/.classpath
+File_Server/.project
+
+# ==========================================
+# 5. Klijentska_Aplikacija
+# ==========================================
+Klijentska_Aplikacija/build/
+Klijentska_Aplikacija/.settings/
+Klijentska_Aplikacija/.classpath
+Klijentska_Aplikacija/.project
+
+# ==========================================
+# 6. Pocetni_Skup_Podataka
+# ==========================================
+Pocetni_Skup_Podataka/bin/
+Pocetni_Skup_Podataka/.settings/
+Pocetni_Skup_Podataka/.classpath
+Pocetni_Skup_Podataka/.project
+
+# ==========================================
+# 7. Prelazak_Granice_Servis
+# ==========================================
+Prelazak_Granice_Servis/build/
+Prelazak_Granice_Servis/.settings/
+Prelazak_Granice_Servis/.classpath
+Prelazak_Granice_Servis/.project
+
+# ==========================================
+# 8. Registar_Potjernica
+# ==========================================
+Registar_Potjernica/bin/
+Registar_Potjernica/.settings/
+Registar_Potjernica/.classpath
+Registar_Potjernica/.project
+
+# ==========================================
+# 9. Testna_Aplikacija
+# ==========================================
+Testna_Aplikacija/bin/
+Testna_Aplikacija/.settings/
+Testna_Aplikacija/.classpath
+Testna_Aplikacija/.project
+
+# ==========================================
+# Opšti sistemski fajlovi
+# ==========================================
+.DS_Store
+Thumbs.db

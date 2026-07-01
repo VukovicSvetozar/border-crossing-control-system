@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" styleClass="kontejner" stylesheets="@../../../../resources/style/Dijalog.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.controller.CarinskiDokumenti">
+   <children>
+      <GridPane alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="350.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="90.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label styleClass="labelaNaslov" text="Dokumentacija" textFill="#2b89ae">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox GridPane.rowIndex="1">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" prefWidth="390.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="390.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox>
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin>
+                           <children>
+                              <VBox alignment="CENTER" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
+                                 <children>
+                                    <Label styleClass="labelaOznaka" text="Terminali" textAlignment="CENTER" textFill="#b993b9">
+                                       <font>
+                                          <Font name="System Bold Italic" size="20.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="120.0" top="30.0" />
+                                       </GridPane.margin>
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ScrollPane hbarPolicy="NEVER" maxWidth="300.0" minHeight="120.0" vbarPolicy="NEVER">
+                                       <content>
+                                          <ListView fx:id="lvListaTerminala" maxHeight="140.0" maxWidth="300.0" minWidth="300.0" />
+                                       </content>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" maxHeight="50.0" minHeight="50.0">
+                                 <children>
+                                    <Label styleClass="labelaOznaka" text="Lista osoba" textAlignment="CENTER" textFill="#b993b9">
+                                       <font>
+                                          <Font name="System Bold Italic" size="20.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="120.0" top="30.0" />
+                                       </GridPane.margin>
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ScrollPane hbarPolicy="NEVER" maxHeight="120.0" maxWidth="300.0" minHeight="120.0" prefHeight="120.0" vbarPolicy="NEVER">
+                                       <content>
+                                          <ListView fx:id="lvListaDokumentovanihProlazaka" maxHeight="120.0" minWidth="300.0" />
+                                       </content>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" GridPane.columnIndex="1">
+                           <opaqueInsets>
+                              <Insets left="15.0" right="5.0" />
+                           </opaqueInsets>
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <VBox alignment="CENTER" maxHeight="50.0" minHeight="50.0">
+                                       <children>
+                                          <Label styleClass="labelaOznaka" text="Lista dokumenata" textAlignment="CENTER" textFill="#b993b9">
+                                             <font>
+                                                <Font name="System Bold Italic" size="20.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets left="120.0" top="30.0" />
+                                             </GridPane.margin>
+                                             <VBox.margin>
+                                                <Insets left="30.0" top="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <TextArea fx:id="taDokumenti" maxWidth="300.0" minHeight="280.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </TextArea>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+               </GridPane.margin>
+               <children>
+                  <Button fx:id="btnIzlaz" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#izadji" prefHeight="55.0" prefWidth="90.0" styleClass="btnIzadji" text="Izlaz" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>

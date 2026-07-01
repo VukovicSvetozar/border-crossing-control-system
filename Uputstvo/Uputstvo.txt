@@ -1,0 +1,35 @@
+
+Redoslijed pokretanja aplikacija:
+
+		Redis-Server
+		Centralni_Registar			- Run on Server
+		Pocetni_Skup_Podataka		- Java application (PocetniPodaci.java)
+		Administratorska_Aplikacija	- Run on Server
+		Prelazak_Granice_Servis		- Run on Server
+		Chat_Server					- Java application (ChatServer.java)
+		File_Server					- Java application (FileServer.java)
+		Registar_Potjernica			- Java application (PotjerniceServer.java)
+		Administratorska_Aplikacija	- Java application (PokretanjeAdministrator.java)
+		Klijentska_Aplikacija		- Java application (PokretanjeKlijent.java)
+		Testna_Aplikacija			- Java application (PokretanjeTest.java)
+
+
+Kredencijali za logovanje:
+
+		Administratorska_Aplikacija:
+			korisnickoIme       lozinka
+			-------------       -------
+			   admin             nimda
+			
+		Klijentska_Aplikacija:
+			terminal       prolaz       korisnickoIme       lozinka       kontrola
+			-------        ------       -------------       -------       --------
+			  AAA           101              Ana             anA             pk
+		 	  AAA           101              Ena             anE             ck
+			  AAA           102              Ina             anI             pk
+			  CCC           105              Tina            aniT            ck
+		
+		Testna_Aplikacija:
+		    terminal       prolaz
+			-------        ------
+			  AAA           101

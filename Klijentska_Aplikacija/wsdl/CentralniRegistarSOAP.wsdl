@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://centralregistry.soap.etf.unibl.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://centralregistry.soap.etf.unibl.org" xmlns:intf="http://centralregistry.soap.etf.unibl.org" xmlns:tns1="http://model.etf.unibl.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://centralregistry.soap.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.etf.unibl.org"/>
+   <element name="terminal">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="terminalResponse">
+    <complexType>
+     <sequence>
+      <element name="terminalReturn" type="tns1:TerminalDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns1_KorisnikDTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:KorisnikDTO"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ProlazDTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:ProlazDTO"/>
+    </sequence>
+   </complexType>
+   <element name="evidentirajProlazak">
+    <complexType>
+     <sequence>
+      <element name="prolazak" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="evidentirajProlazakResponse">
+    <complexType/>
+   </element>
+   <element name="evidentirajPotjernicu">
+    <complexType>
+     <sequence>
+      <element name="prolazak" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="evidentirajPotjernicuResponse">
+    <complexType/>
+   </element>
+   <element name="evidentirajDokumente">
+    <complexType>
+     <sequence>
+      <element name="prolazak" type="tns1:ProlazakDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="evidentirajDokumenteResponse">
+    <complexType/>
+   </element>
+   <element name="obrisiTerminal">
+    <complexType>
+     <sequence>
+      <element name="idTerminal" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="obrisiTerminalResponse">
+    <complexType>
+     <sequence>
+      <element name="obrisiTerminalReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="izmjeniTerminal">
+    <complexType>
+     <sequence>
+      <element name="terminal" type="tns1:TerminalDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="izmjeniTerminalResponse">
+    <complexType>
+     <sequence>
+      <element name="izmjeniTerminalReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeriTerminal">
+    <complexType>
+     <sequence>
+      <element name="nazivTeminala" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="provjeriTerminalResponse">
+    <complexType>
+     <sequence>
+      <element name="provjeriTerminalReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="terminali">
+    <complexType/>
+   </element>
+   <element name="terminaliResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="terminaliReturn" type="tns1:TerminalDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="dodajTerminal">
+    <complexType>
+     <sequence>
+      <element name="terminal" type="tns1:TerminalDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="dodajTerminalResponse">
+    <complexType/>
+   </element>
+   <element name="prolazi">
+    <complexType/>
+   </element>
+   <element name="prolaziResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="prolaziReturn" type="tns1:ProlazDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="aktivanProlaz">
+    <complexType>
+     <sequence>
+      <element name="idProlaz" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="aktivanProlazResponse">
+    <complexType>
+     <sequence>
+      <element name="aktivanProlazReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="korisnici">
+    <complexType/>
+   </element>
+   <element name="korisniciResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="korisniciReturn" type="tns1:KorisnikDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="postaviStatus">
+    <complexType>
+     <sequence>
+      <element name="korisnickoIme" type="xsd:string"/>
+      <element name="aktivan" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="postaviStatusResponse">
+    <complexType/>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://centralregistry.soap.etf.unibl.org"/>
+   <complexType name="KorisnikDTO">
+    <sequence>
+     <element name="aktivan" nillable="true" type="xsd:boolean"/>
+     <element name="idProlaz" nillable="true" type="xsd:string"/>
+     <element name="korisnickoIme" nillable="true" type="xsd:string"/>
+     <element name="lozinka" nillable="true" type="xsd:string"/>
+     <element name="tipKontrole" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ProlazDTO">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="idTerminal" nillable="true" type="xsd:string"/>
+     <element name="korisnici" nillable="true" type="impl:ArrayOf_tns1_KorisnikDTO"/>
+     <element name="tipProlaza" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="TerminalDTO">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="naziv" nillable="true" type="xsd:string"/>
+     <element name="prolazi" nillable="true" type="impl:ArrayOf_tns1_ProlazDTO"/>
+     <element name="tipSerijalizacije" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ProlazakDTO">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="idOsoba" nillable="true" type="xsd:string"/>
+     <element name="informacije" nillable="true" type="xsd:string"/>
+     <element name="odabraniFajlovi" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="aktivanProlazRequest">
+
+      <wsdl:part element="impl:aktivanProlaz" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="izmjeniTerminalResponse">
+
+      <wsdl:part element="impl:izmjeniTerminalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dodajTerminalResponse">
+
+      <wsdl:part element="impl:dodajTerminalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajDokumenteResponse">
+
+      <wsdl:part element="impl:evidentirajDokumenteResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajPotjernicuResponse">
+
+      <wsdl:part element="impl:evidentirajPotjernicuResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajProlazakResponse">
+
+      <wsdl:part element="impl:evidentirajProlazakResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="prolaziResponse">
+
+      <wsdl:part element="impl:prolaziResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajProlazakRequest">
+
+      <wsdl:part element="impl:evidentirajProlazak" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="terminalResponse">
+
+      <wsdl:part element="impl:terminalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajDokumenteRequest">
+
+      <wsdl:part element="impl:evidentirajDokumente" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="postaviStatusRequest">
+
+      <wsdl:part element="impl:postaviStatus" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="prolaziRequest">
+
+      <wsdl:part element="impl:prolazi" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="terminalRequest">
+
+      <wsdl:part element="impl:terminal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="terminaliRequest">
+
+      <wsdl:part element="impl:terminali" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="terminaliResponse">
+
+      <wsdl:part element="impl:terminaliResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="postaviStatusResponse">
+
+      <wsdl:part element="impl:postaviStatusResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="obrisiTerminalResponse">
+
+      <wsdl:part element="impl:obrisiTerminalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="korisniciResponse">
+
+      <wsdl:part element="impl:korisniciResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="korisniciRequest">
+
+      <wsdl:part element="impl:korisnici" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriTerminalRequest">
+
+      <wsdl:part element="impl:provjeriTerminal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dodajTerminalRequest">
+
+      <wsdl:part element="impl:dodajTerminal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="aktivanProlazResponse">
+
+      <wsdl:part element="impl:aktivanProlazResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="obrisiTerminalRequest">
+
+      <wsdl:part element="impl:obrisiTerminal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="provjeriTerminalResponse">
+
+      <wsdl:part element="impl:provjeriTerminalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="evidentirajPotjernicuRequest">
+
+      <wsdl:part element="impl:evidentirajPotjernicu" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="izmjeniTerminalRequest">
+
+      <wsdl:part element="impl:izmjeniTerminal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="CentralniRegistarSOAP">
+
+      <wsdl:operation name="terminal">
+
+         <wsdl:input message="impl:terminalRequest" name="terminalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:terminalResponse" name="terminalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajProlazak">
+
+         <wsdl:input message="impl:evidentirajProlazakRequest" name="evidentirajProlazakRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:evidentirajProlazakResponse" name="evidentirajProlazakResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajPotjernicu">
+
+         <wsdl:input message="impl:evidentirajPotjernicuRequest" name="evidentirajPotjernicuRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:evidentirajPotjernicuResponse" name="evidentirajPotjernicuResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajDokumente">
+
+         <wsdl:input message="impl:evidentirajDokumenteRequest" name="evidentirajDokumenteRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:evidentirajDokumenteResponse" name="evidentirajDokumenteResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="obrisiTerminal">
+
+         <wsdl:input message="impl:obrisiTerminalRequest" name="obrisiTerminalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:obrisiTerminalResponse" name="obrisiTerminalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="izmjeniTerminal">
+
+         <wsdl:input message="impl:izmjeniTerminalRequest" name="izmjeniTerminalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:izmjeniTerminalResponse" name="izmjeniTerminalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriTerminal">
+
+         <wsdl:input message="impl:provjeriTerminalRequest" name="provjeriTerminalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:provjeriTerminalResponse" name="provjeriTerminalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="terminali">
+
+         <wsdl:input message="impl:terminaliRequest" name="terminaliRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:terminaliResponse" name="terminaliResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="dodajTerminal">
+
+         <wsdl:input message="impl:dodajTerminalRequest" name="dodajTerminalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:dodajTerminalResponse" name="dodajTerminalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="prolazi">
+
+         <wsdl:input message="impl:prolaziRequest" name="prolaziRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:prolaziResponse" name="prolaziResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="aktivanProlaz">
+
+         <wsdl:input message="impl:aktivanProlazRequest" name="aktivanProlazRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:aktivanProlazResponse" name="aktivanProlazResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="korisnici">
+
+         <wsdl:input message="impl:korisniciRequest" name="korisniciRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:korisniciResponse" name="korisniciResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="postaviStatus">
+
+         <wsdl:input message="impl:postaviStatusRequest" name="postaviStatusRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:postaviStatusResponse" name="postaviStatusResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="CentralniRegistarSOAPSoapBinding" type="impl:CentralniRegistarSOAP">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="terminal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="terminalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="terminalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajProlazak">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="evidentirajProlazakRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="evidentirajProlazakResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajPotjernicu">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="evidentirajPotjernicuRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="evidentirajPotjernicuResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="evidentirajDokumente">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="evidentirajDokumenteRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="evidentirajDokumenteResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="obrisiTerminal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="obrisiTerminalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="obrisiTerminalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="izmjeniTerminal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="izmjeniTerminalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="izmjeniTerminalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="provjeriTerminal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="provjeriTerminalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="provjeriTerminalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="terminali">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="terminaliRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="terminaliResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="dodajTerminal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="dodajTerminalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="dodajTerminalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="prolazi">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="prolaziRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="prolaziResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="aktivanProlaz">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="aktivanProlazRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="aktivanProlazResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="korisnici">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="korisniciRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="korisniciResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="postaviStatus">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="postaviStatusRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="postaviStatusResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CentralniRegistarSOAPService">
+
+      <wsdl:port binding="impl:CentralniRegistarSOAPSoapBinding" name="CentralniRegistarSOAP">
+
+         <wsdlsoap:address location="http://localhost:8080/Centralni_Registar/services/CentralniRegistarSOAP"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

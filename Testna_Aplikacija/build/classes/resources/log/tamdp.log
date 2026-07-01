@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-28T14:45:13</date>
+  <millis>1669643113370</millis>
+  <sequence>0</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>org.unibl.etf.utility.FileLogger</class>
+  <method>log</method>
+  <thread>13</thread>
+  <message>vukovic!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-28T15:33:36</date>
+  <millis>1669646016304</millis>
+  <sequence>0</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>org.unibl.etf.utility.FileLogger</class>
+  <method>log</method>
+  <thread>13</thread>
+  <message>vukovic!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-28T15:40:42</date>
+  <millis>1669646442144</millis>
+  <sequence>0</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>org.unibl.etf.utility.FileLogger</class>
+  <method>log</method>
+  <thread>13</thread>
+  <message>vukovic!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-28T16:19:02</date>
+  <millis>1669648742858</millis>
+  <sequence>0</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>org.unibl.etf.utility.FileLogger</class>
+  <method>log</method>
+  <thread>13</thread>
+  <message>vukovic!</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-28T16:23:39</date>
+  <millis>1669649019302</millis>
+  <sequence>0</sequence>
+  <logger>java.util.logging.Logger</logger>
+  <level>SEVERE</level>
+  <class>org.unibl.etf.utility.FileLogger</class>
+  <method>log</method>
+  <thread>13</thread>
+  <message>vukovic!</message>
+</record>
+</log>

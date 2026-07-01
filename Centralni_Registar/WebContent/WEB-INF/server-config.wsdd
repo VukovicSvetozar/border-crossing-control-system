@@ -1,0 +1,103 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value="F:\Edukacija\Programiranje\MDP\Projektni\Aktivno\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Centralni_Registar\WEB-INF\attachments"/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:service name="CentralniRegistarSOAP" provider="java:RPC" style="wrapped" use="literal">
+  <ns3:operation name="terminal" qname="ns1:terminal" returnQName="ns1:terminalReturn" returnType="ns2:TerminalDTO" soapAction="" xmlns:ns1="http://centralregistry.soap.etf.unibl.org" xmlns:ns2="http://model.etf.unibl.org" xmlns:ns3="http://xml.apache.org/axis/wsdd/">
+   <ns3:parameter qname="ns1:idTerminal" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns3:operation>
+  <ns1:operation name="evidentirajProlazak" qname="ns3:evidentirajProlazak" soapAction="" xmlns:ns3="http://centralregistry.soap.etf.unibl.org">
+   <ns1:parameter qname="ns3:prolazak" type="ns4:ProlazakDTO" xmlns:ns4="http://model.etf.unibl.org"/>
+  </ns1:operation>
+  <ns1:operation name="evidentirajPotjernicu" qname="ns5:evidentirajPotjernicu" soapAction="" xmlns:ns5="http://centralregistry.soap.etf.unibl.org">
+   <ns1:parameter qname="ns5:prolazak" type="ns6:ProlazakDTO" xmlns:ns6="http://model.etf.unibl.org"/>
+  </ns1:operation>
+  <ns1:operation name="evidentirajDokumente" qname="ns7:evidentirajDokumente" soapAction="" xmlns:ns7="http://centralregistry.soap.etf.unibl.org">
+   <ns1:parameter qname="ns7:prolazak" type="ns8:ProlazakDTO" xmlns:ns8="http://model.etf.unibl.org"/>
+  </ns1:operation>
+  <ns1:operation name="obrisiTerminal" qname="ns9:obrisiTerminal" returnQName="ns9:obrisiTerminalReturn" returnType="xsd:boolean" soapAction="" xmlns:ns9="http://centralregistry.soap.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:idTerminal" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="izmjeniTerminal" qname="ns10:izmjeniTerminal" returnQName="ns10:izmjeniTerminalReturn" returnType="xsd:boolean" soapAction="" xmlns:ns10="http://centralregistry.soap.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns10:terminal" type="ns11:TerminalDTO" xmlns:ns11="http://model.etf.unibl.org"/>
+  </ns1:operation>
+  <ns1:operation name="provjeriTerminal" qname="ns12:provjeriTerminal" returnQName="ns12:provjeriTerminalReturn" returnType="xsd:boolean" soapAction="" xmlns:ns12="http://centralregistry.soap.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns12:nazivTeminala" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="terminali" qname="ns13:terminali" returnQName="ns13:terminaliReturn" returnType="ns14:TerminalDTO" soapAction="" xmlns:ns13="http://centralregistry.soap.etf.unibl.org" xmlns:ns14="http://model.etf.unibl.org"/>
+  <ns1:operation name="dodajTerminal" qname="ns15:dodajTerminal" soapAction="" xmlns:ns15="http://centralregistry.soap.etf.unibl.org">
+   <ns1:parameter qname="ns15:terminal" type="ns16:TerminalDTO" xmlns:ns16="http://model.etf.unibl.org"/>
+  </ns1:operation>
+  <ns1:operation name="prolazi" qname="ns17:prolazi" returnQName="ns17:prolaziReturn" returnType="ns18:ProlazDTO" soapAction="" xmlns:ns17="http://centralregistry.soap.etf.unibl.org" xmlns:ns18="http://model.etf.unibl.org"/>
+  <ns1:operation name="aktivanProlaz" qname="ns19:aktivanProlaz" returnQName="ns19:aktivanProlazReturn" returnType="xsd:boolean" soapAction="" xmlns:ns19="http://centralregistry.soap.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns19:idProlaz" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="korisnici" qname="ns20:korisnici" returnQName="ns20:korisniciReturn" returnType="ns21:KorisnikDTO" soapAction="" xmlns:ns20="http://centralregistry.soap.etf.unibl.org" xmlns:ns21="http://model.etf.unibl.org"/>
+  <ns1:operation name="postaviStatus" qname="ns22:postaviStatus" soapAction="" xmlns:ns22="http://centralregistry.soap.etf.unibl.org">
+   <ns1:parameter qname="ns22:korisnickoIme" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns22:aktivan" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="prolazi obrisiTerminal provjeriTerminal korisnici terminal evidentirajPotjernicu evidentirajDokumente postaviStatus aktivanProlaz evidentirajProlazak terminali dodajTerminal izmjeniTerminal"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="CentralniRegistarSOAP"/>
+  <ns1:parameter name="className" value="org.unibl.etf.soap.centralregistry.CentralniRegistarSOAP"/>
+  <ns1:parameter name="wsdlServicePort" value="CentralniRegistarSOAP"/>
+  <ns1:parameter name="schemaQualified" value="http://centralregistry.soap.etf.unibl.org,http://model.etf.unibl.org"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://centralregistry.soap.etf.unibl.org"/>
+  <ns1:parameter name="wsdlServiceElement" value="CentralniRegistarSOAPService"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns23:KorisnikDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.unibl.etf.model.KorisnikDTO" xmlns:ns23="http://model.etf.unibl.org"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns24:ProlazakDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.unibl.etf.model.ProlazakDTO" xmlns:ns24="http://model.etf.unibl.org"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns25:ProlazDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.unibl.etf.model.ProlazDTO" xmlns:ns25="http://model.etf.unibl.org"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns26:TerminalDTO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.unibl.etf.model.TerminalDTO" xmlns:ns26="http://model.etf.unibl.org"/>
+  <ns1:arrayMapping innerType="xsd:string" languageSpecificType="java:java.lang.String[]" qname="ns27:ArrayOf_xsd_string" xmlns:ns27="http://centralregistry.soap.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:arrayMapping innerType="ns29:KorisnikDTO" languageSpecificType="java:org.unibl.etf.model.KorisnikDTO[]" qname="ns28:ArrayOf_tns1_KorisnikDTO" xmlns:ns28="http://centralregistry.soap.etf.unibl.org" xmlns:ns29="http://model.etf.unibl.org"/>
+  <ns1:arrayMapping innerType="ns31:ProlazDTO" languageSpecificType="java:org.unibl.etf.model.ProlazDTO[]" qname="ns30:ArrayOf_tns1_ProlazDTO" xmlns:ns30="http://centralregistry.soap.etf.unibl.org" xmlns:ns31="http://model.etf.unibl.org"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>

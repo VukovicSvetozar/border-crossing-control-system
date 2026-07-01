@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+ <object class="org.unibl.etf.model.TerminalDTO">
+  <void property="id">
+   <string>004</string>
+  </void>
+  <void property="naziv">
+   <string>DDD</string>
+  </void>
+  <void property="prolazi">
+   <array class="org.unibl.etf.model.ProlazDTO" length="2">
+    <void index="0">
+     <object class="org.unibl.etf.model.ProlazDTO">
+      <void property="id">
+       <string>107</string>
+      </void>
+      <void property="idTerminal">
+       <string>004</string>
+      </void>
+      <void property="korisnici">
+       <array class="org.unibl.etf.model.KorisnikDTO" length="2">
+        <void index="0">
+         <object class="org.unibl.etf.model.KorisnikDTO">
+          <void property="aktivan">
+           <boolean>false</boolean>
+          </void>
+          <void property="idProlaz">
+           <string>107</string>
+          </void>
+          <void property="korisnickoIme">
+           <string>Kata</string>
+          </void>
+          <void property="lozinka">
+           <string></string>
+          </void>
+          <void property="tipKontrole">
+           <string>POLICIJSKA</string>
+          </void>
+         </object>
+        </void>
+        <void index="1">
+         <object class="org.unibl.etf.model.KorisnikDTO">
+          <void property="aktivan">
+           <boolean>false</boolean>
+          </void>
+          <void property="idProlaz">
+           <string>107</string>
+          </void>
+          <void property="korisnickoIme">
+           <string>Sanja</string>
+          </void>
+          <void property="lozinka">
+           <string></string>
+          </void>
+          <void property="tipKontrole">
+           <string>CARINSKA</string>
+          </void>
+         </object>
+        </void>
+       </array>
+      </void>
+      <void property="tipProlaza">
+       <string>ULAZ</string>
+      </void>
+     </object>
+    </void>
+    <void index="1">
+     <object class="org.unibl.etf.model.ProlazDTO">
+      <void property="id">
+       <string>108</string>
+      </void>
+      <void property="idTerminal">
+       <string>004</string>
+      </void>
+      <void property="korisnici">
+       <array class="org.unibl.etf.model.KorisnikDTO" length="2">
+        <void index="0">
+         <object class="org.unibl.etf.model.KorisnikDTO">
+          <void property="aktivan">
+           <boolean>false</boolean>
+          </void>
+          <void property="idProlaz">
+           <string>108</string>
+          </void>
+          <void property="korisnickoIme">
+           <string>Vanja</string>
+          </void>
+          <void property="lozinka">
+           <string></string>
+          </void>
+          <void property="tipKontrole">
+           <string>POLICIJSKA</string>
+          </void>
+         </object>
+        </void>
+        <void index="1">
+         <object class="org.unibl.etf.model.KorisnikDTO">
+          <void property="aktivan">
+           <boolean>false</boolean>
+          </void>
+          <void property="idProlaz">
+           <string>108</string>
+          </void>
+          <void property="korisnickoIme">
+           <string>Tanja</string>
+          </void>
+          <void property="lozinka">
+           <string></string>
+          </void>
+          <void property="tipKontrole">
+           <string>CARINSKA</string>
+          </void>
+         </object>
+        </void>
+       </array>
+      </void>
+      <void property="tipProlaza">
+       <string>IZLAZ</string>
+      </void>
+     </object>
+    </void>
+   </array>
+  </void>
+  <void property="tipSerijalizacije">
+   <string>XML</string>
+  </void>
+ </object>
+</java>

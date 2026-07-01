@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="1000.0" prefWidth="1600.0" styleClass="kontejner" stylesheets="@../../../../resources/style/Dijalog.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unibl.etf.controller.EvidencijaPutnika">
+   <children>
+      <GridPane alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="120.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="700.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints prefHeight="180.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER" styleClass="pozadina-gore">
+               <children>
+                  <Label styleClass="labelaNaslov" text="Evidencija osoba" textFill="#2b89ae">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER" GridPane.rowIndex="1">
+               <children>
+                  <GridPane alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" prefWidth="780.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="780.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER" styleClass="pozadina-gore">
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin>
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label styleClass="labelaNaslov" text="Lista prolazaka" textAlignment="CENTER" textFill="#b993b9">
+                                       <font>
+                                          <Font name="System Bold Italic" size="20.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="120.0" top="30.0" />
+                                       </GridPane.margin>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="30.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <ScrollPane hbarPolicy="NEVER" maxWidth="600.0" minWidth="600.0" prefHeight="560.0" prefWidth="600.0" vbarPolicy="NEVER">
+                                       <content>
+                                          <ListView fx:id="lvListaProlazaka" prefHeight="560.0" prefWidth="600.0" />
+                                       </content>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" styleClass="pozadina-gore" GridPane.columnIndex="1">
+                           <opaqueInsets>
+                              <Insets left="15.0" right="5.0" />
+                           </opaqueInsets>
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="50.0">
+                                 <children>
+                                    <Label styleClass="labelaNaslov" text="Informacije" textAlignment="CENTER" textFill="#b993b9">
+                                       <font>
+                                          <Font name="System Bold Italic" size="20.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="120.0" top="30.0" />
+                                       </GridPane.margin>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="30.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <TextArea fx:id="taInformacije" maxWidth="560.0" minHeight="280.0" minWidth="300.0" prefHeight="600.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER" styleClass="pozadina-dolje" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+               </GridPane.margin>
+               <children>
+                  <Button fx:id="btnIzlaz" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#izadji" prefHeight="110.0" prefWidth="180.0" styleClass="btnIzadji" text="Izlaz" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>

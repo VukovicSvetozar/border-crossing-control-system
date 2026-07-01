@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+ <object class="org.unibl.etf.model.ProlazakDTO">
+  <void property="id">
+   <string>001#101#2022_11_28T14_52_38#5</string>
+  </void>
+  <void property="idOsoba">
+   <string>456</string>
+  </void>
+  <void property="informacije">
+   <string>			456
+
+14:52:38 2022-11-28
+		POLICIJSKA_KONTROLA
+14:52:38 2022-11-28
+		NIJE_NA_POTJERNICI
+14:52:39 2022-11-28
+		DOKUMENTACIJA
+14:53:21 2022-11-28
+		ZAVRSEN
+</string>
+  </void>
+  <void property="odabraniFajlovi">
+   <array class="java.lang.String" length="2">
+    <void index="0">
+     <string>F:\Edukacija\Programiranje\MDP\Projektni\Aktivno\Klijentska_Aplikacija\src\resources\documents\Tovarni_list_CMR.txt</string>
+    </void>
+    <void index="1">
+     <string>F:\Edukacija\Programiranje\MDP\Projektni\Aktivno\Klijentska_Aplikacija\src\resources\documents\Granicna_prijava.csv</string>
+    </void>
+   </array>
+  </void>
+  <void property="status">
+   <string>ZAVRSEN</string>
+  </void>
+ </object>
+</java>
