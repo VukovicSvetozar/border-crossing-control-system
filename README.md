@@ -1,12 +1,19 @@
-# Sistem za evidenciju i kontrolu prelaska državne granice
+<br>
+<br>
+<div align="center">
+  <h1>Sistem za evidenciju i kontrolu prelaska državne granice</h1> 
+</div>
+<br>
+<br>
+<br>
 
-Distribuirani sistem koji simulira evidenciju i kontrolu putnika prilikom prelaska državne granice — od upravljanja graničnim terminalima, preko prijave i rada policijskog/carinskog osoblja na terenu, do provjere potjernica i arhiviranja dokumenata. Projekat je urađen kao projektni zadatak iz predmeta **Mrežno i distribuirano programiranje** na **Elektrotehničkom fakultetu Univerziteta u Banjoj Luci** (maj 2022).
+<div style="page-break-before: always;"></div>
 
+Distribuirani sistem koji simulira evidenciju i kontrolu putnika prilikom prelaska državne granice — od upravljanja graničnim terminalima, preko prijave i rada policijskog/carinskog osoblja na terenu, do provjere potjernica i arhiviranja dokumenata.
 Sistem se sastoji od devet samostalnih Java aplikacija koje međusobno komuniciraju putem SOAP-a, REST-a, RMI-ja, TCP soketa (TLS) i multicast-a, i predstavlja praktičnu vježbu iz kombinovanja različitih mrežnih tehnologija u jednom sistemu.
 
 ## Sadržaj
 
-- [Arhitektura sistema](#arhitektura-sistema)
 - [Komponente sistema](#komponente-sistema)
 - [Kako sistem funkcioniše](#kako-sistem-funkcioniše)
 - [Bezbjednost](#bezbjednost)
@@ -15,48 +22,6 @@ Sistem se sastoji od devet samostalnih Java aplikacija koje međusobno komunicir
 - [Pokretanje sistema](#pokretanje-sistema)
 - [Kredencijali za testiranje](#kredencijali-za-testiranje)
 - [Konfiguracija](#konfiguracija)
-
-## Arhitektura sistema
-
-```mermaid
-flowchart LR
-    subgraph Desktop["Desktop aplikacije (JavaFX)"]
-        ADM["Administratorska aplikacija"]
-        KLI["Klijentska aplikacija (N instanci)"]
-        TES["Testna aplikacija"]
-    end
-
-    subgraph Servisi["Server komponente"]
-        CR["Centralni registar"]
-        PGS["Prelazak granice servis"]
-        CS["Chat server"]
-        FS["Fajl server"]
-        RP["Registar potjernica"]
-        REDIS[("Redis")]
-    end
-
-    SEED["Početni skup podataka"] -- SOAP --> CR
-    SEED -. upis kredencijala .-> REDIS
-
-    ADM -- "SOAP (terminali)" --> CR
-    ADM -- "REST (evidencije)" --> CR
-    ADM -- "REST (korisnički nalozi)" --> REDIS
-
-    KLI -- "SOAP (provjera terminala)" --> CR
-    KLI -- "SOAP (policija/carina)" --> PGS
-    KLI -- "REST (prijava)" --> ADM
-    KLI -. "direktno (promjena lozinke)" .-> REDIS
-    KLI -- "RMI" --> RP
-    KLI -- "RMI (dokumenti)" --> FS
-    KLI <-- "TLS soket (chat)" --> CS
-    KLI -. "multicast (chat/obavještenja)" .-> KLI
-
-    TES -- "SOAP (provjera terminala)" --> CR
-    TES -- "SOAP (policija/carina)" --> PGS
-    TES -. "multicast (obavještenja)" .-> KLI
-```
-
-Napomena: dijagram prikazuje logičke tokove komunikacije; tačan smjer i broj poziva zavisi od toka simulacije (prijava → policijska kontrola → carinska kontrola).
 
 ## Komponente sistema
 
