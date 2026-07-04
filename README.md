@@ -4,8 +4,6 @@
   <h1>Sistem za evidenciju i kontrolu prelaska državne granice</h1> 
 </div>
 <br>
-<br>
-<br>
 
 <div style="page-break-before: always;"></div>
 
@@ -136,7 +134,3 @@ Svi parametri (adrese, portovi, putanje, timeout vrijednosti i sl.) definisani s
 - apsolutnu putanju do direktorijuma sa terminalima u konfiguraciji `Centralni_Registar`-a (podrazumijevano je postavljena na razvojno okruženje autora),
 - adrese i portove servisa ako se komponente pokreću na različitim mašinama (podrazumijevano sve radi na `localhost`),
 - lozinke za keystore/truststore korišćene u TLS chat komunikaciji.
-
----
-
-*Projekat je izrađen u okviru predmeta Mrežno i distribuirano programiranje, Elektrotehnički fakultet Banja Luka, 2022. godine.*
