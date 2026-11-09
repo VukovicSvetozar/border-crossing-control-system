@@ -1,177 +1,183 @@
-# Sistem za evidenciju i kontrolu prelaska državne granice
+**English** | [Srpski](README.sr.md)
 
-Distribuirani sistem koji simulira evidenciju i kontrolu putnika prilikom prelaska državne granice — od upravljanja graničnim terminalima, preko prijave i rada policijskog/carinskog osoblja na terenu, do provjere potjernica i arhiviranja dokumenata. Projekat je urađen kao projektni zadatak iz predmeta **Mrežno i distribuirano programiranje** na **Elektrotehničkom fakultetu Univerziteta u Banjoj Luci** (maj 2022).
+<div align="center">
+  <h1>Border Crossing Control and Registration System</h1>
+</div>
 
-Sistem se sastoji od devet samostalnih Java aplikacija koje međusobno komuniciraju putem SOAP-a, REST-a, RMI-ja, TCP soketa (TLS) i multicast-a, i predstavlja praktičnu vježbu iz kombinovanja različitih mrežnih tehnologija u jednom sistemu.
+<!-- Add the 2-3 best screenshots here (e.g. the Client, Administrator and Test applications). -->
 
-## Sadržaj
+A distributed system that simulates passenger registration and control at a state border crossing: managing border terminals, login and on-site work of police/customs staff, warrant checks, and document archiving.
+It consists of nine Java applications that communicate over SOAP, REST, RMI, TCP sockets (TLS) and multicast, and is a practical exercise in combining different networking technologies in one system.
 
-- [Arhitektura sistema](#arhitektura-sistema)
-- [Komponente sistema](#komponente-sistema)
-- [Kako sistem funkcioniše](#kako-sistem-funkcioniše)
-- [Bezbjednost](#bezbjednost)
-- [Serijalizacija i čuvanje podataka](#serijalizacija-i-čuvanje-podataka)
-- [Struktura repozitorijuma](#struktura-repozitorijuma)
-- [Pokretanje sistema](#pokretanje-sistema)
-- [Kredencijali za testiranje](#kredencijali-za-testiranje)
-- [Konfiguracija](#konfiguracija)
+## Key features
 
-## Arhitektura sistema
+- **Terminal management:** add, edit, delete and view border terminals, each with any number of entry/exit points that have both police and customs control.
+- **Work at an entry/exit point:** the Client Application checks the terminal (SOAP) and the username and password (REST); after login it offers logout, password change and viewing the record of checked passengers.
+- **Chat between entry/exit points:** messages to a single entry/exit point, to all entry/exit points of one terminal, or to all entry/exit points in the system, over a TLS connection to the Chat Server.
+- **Border crossing simulation:** police control (the person's identifier is checked against the Warrant Register via RMI), multicast notifications about temporary closure of the crossing and resumed work, and document submission at customs (RMI, stored as ZIP).
+- **Administration:** management of terminals and user accounts, and download of the records of detected wanted persons and submitted customs documents through a REST service.
+- **Security and data:** passwords hashed with PBKDF2WithHmacSHA512 and a salt, TLS for chat, terminals serialized in four formats.
+
+## System architecture
 
 ```mermaid
 flowchart LR
-    subgraph Desktop["Desktop aplikacije (JavaFX)"]
-        ADM["Administratorska aplikacija"]
-        KLI["Klijentska aplikacija (N instanci)"]
-        TES["Testna aplikacija"]
+    subgraph Desktop["Desktop applications (JavaFX)"]
+        ADM["Administrator Application"]
+        KLI["Client Application (N instances)"]
+        TES["Test Application"]
     end
 
-    subgraph Servisi["Server komponente"]
-        CR["Centralni registar"]
-        PGS["Prelazak granice servis"]
-        CS["Chat server"]
-        FS["Fajl server"]
-        RP["Registar potjernica"]
+    subgraph Servisi["Server components"]
+        CR["Central Registry"]
+        PGS["Border Crossing Service"]
+        CS["Chat Server"]
+        FS["File Server"]
+        RP["Warrant Register"]
         REDIS[("Redis")]
     end
 
-    SEED["Početni skup podataka"] -- SOAP --> CR
-    SEED -. upis kredencijala .-> REDIS
+    SEED["Initial Data Set"] -- SOAP --> CR
+    SEED -. "user accounts" .-> REDIS
 
-    ADM -- "SOAP (terminali)" --> CR
-    ADM -- "REST (evidencije)" --> CR
-    ADM -- "REST (korisnički nalozi)" --> REDIS
+    ADM -- "SOAP (terminals)" --> CR
+    ADM -- "REST (records)" --> CR
 
-    KLI -- "SOAP (provjera terminala)" --> CR
-    KLI -- "SOAP (policija/carina)" --> PGS
-    KLI -- "REST (prijava)" --> ADM
-    KLI -. "direktno (promjena lozinke)" .-> REDIS
+    KLI -- "SOAP (terminal check)" --> CR
+    KLI -- "REST (login)" --> ADM
     KLI -- "RMI" --> RP
-    KLI -- "RMI (dokumenti)" --> FS
-    KLI <-- "TLS soket (chat)" --> CS
-    KLI -. "multicast (chat/obavještenja)" .-> KLI
+    KLI -- "RMI (documents)" --> FS
+    KLI <-- "TLS socket (chat)" --> CS
 
-    TES -- "SOAP (provjera terminala)" --> CR
-    TES -- "SOAP (policija/carina)" --> PGS
-    TES -. "multicast (obavještenja)" .-> KLI
+    TES -- "SOAP (terminal check)" --> CR
+    TES -- "SOAP (control simulation)" --> PGS
+    TES -. "multicast (notifications)" .-> KLI
 ```
 
-Napomena: dijagram prikazuje logičke tokove komunikacije; tačan smjer i broj poziva zavisi od toka simulacije (prijava → policijska kontrola → carinska kontrola).
+Note: the diagram shows logical communication flows; the exact direction and number of calls depend on the simulation flow.
 
-## Komponente sistema
+## Contents
 
-| Komponenta | Tip | Protokol / tehnologija | Uloga |
+- [System architecture](#system-architecture)
+- [System components](#system-components)
+- [How the system works](#how-the-system-works)
+- [Security](#security)
+- [Serialization and data storage](#serialization-and-data-storage)
+- [Repository structure](#repository-structure)
+- [Running the system](#running-the-system)
+- [Test credentials](#test-credentials)
+- [Configuration](#configuration)
+
+## System components
+
+| Component | Type | Protocol / technology | Role |
 |---|---|---|---|
-| **Centralni_Registar** | Web servis (server) | SOAP (Apache Axis) + REST (Jersey) | Čuva podatke o terminalima, evidenciju provjerenih putnika, potjernica i priloženih dokumenata |
-| **Administratorska_Aplikacija** | JavaFX desktop + web modul | SOAP klijent, REST server i klijent | CRUD terminala, upravljanje korisničkim nalozima, pregled evidencije potjernica/dokumenata |
-| **Prelazak_Granice_Servis** | Web servis (server) | SOAP (Apache Axis) | Simulira policijsku i carinsku kontrolu na konkretnom ulazu/izlazu |
-| **Chat_Server** | Samostalna Java aplikacija | TLS (secured socket) | Posreduje chat poruke (unicast/multicast/broadcast) između klijentskih aplikacija |
-| **File_Server** | Samostalna Java aplikacija | RMI | Prijem, kompresija (ZIP) i čuvanje dokumenata koje osoba prilaže na carini |
-| **Registar_Potjernica** | Samostalna Java aplikacija | RMI | Provjerava da li je identifikator osobe na listi potjernica |
-| **Klijentska_Aplikacija** | JavaFX desktop (N instanci) | REST, SOAP, RMI, TLS soket, multicast | Rad na konkretnom ulazu/izlazu (policijski ili carinski), chat, promjena lozinke, pregled evidencije |
-| **Testna_Aplikacija** | JavaFX desktop | SOAP klijent, multicast | Simulira dolazak i prolazak osobe kroz odabrani ulaz/izlaz terminala |
-| **Pocetni_Skup_Podataka** | Java skripta | SOAP, Redis | Popunjava sistem početnim podacima (terminali, korisnički nalozi) radi lakšeg testiranja |
-| **Redis** | In-memory baza | — | Čuva korisnička imena i lozinke (heširane) |
+| **Centralni_Registar** | Web service (server) | SOAP (Apache Axis) + REST (Jersey) | Stores terminals and the records of checked passengers, warrants and submitted documents |
+| **Administratorska_Aplikacija** | JavaFX desktop + web module | SOAP client, REST server and client | Terminal CRUD, user account management, viewing warrant/document records |
+| **Prelazak_Granice_Servis** | Web service (server) | SOAP (Apache Axis) | Simulates police and customs control at a specific entry/exit point |
+| **Chat_Server** | Standalone Java application | TLS (secured socket) | Relays chat messages (unicast/multicast/broadcast) between client applications |
+| **File_Server** | Standalone Java application | RMI | Receives, compresses (ZIP) and stores the documents a person submits at customs |
+| **Registar_Potjernica** | Standalone Java application | RMI | Checks whether a person's identifier is on the warrant list |
+| **Klijentska_Aplikacija** | JavaFX desktop (N instances) | REST, SOAP, RMI, TLS socket, multicast | Work at a specific entry/exit point (police or customs), chat, password change, viewing records |
+| **Testna_Aplikacija** | JavaFX desktop | SOAP client, multicast | Simulates a person arriving at and passing through a selected entry/exit point of a terminal |
+| **Pocetni_Skup_Podataka** | Standalone Java application | SOAP, Redis | Populates the system with initial data (terminals, user accounts) to make testing easier |
+| **Redis** | In-memory database | — | Stores usernames and hashed passwords |
 
-## Kako sistem funkcioniše
+## How the system works
 
-**Terminali.** Svaki granični terminal ima jedinstven cjelobrojni identifikator, naziv i proizvoljan broj ulaza/izlaza, od kojih svaki ima i policijsku i carinsku kontrolu. Terminalima se upravlja isključivo kroz Administratorsku aplikaciju (dodavanje, izmjena, brisanje, pregled), a podaci se binarno serijalizuju i čuvaju na Centralnom registru, svaki terminal u posebnom fajlu.
+**Terminals.** Each border terminal has a unique integer ID, a name, and any number of entry/exit points, each with both a police and a customs control. Terminals are managed through the Administrator Application (add, edit, delete, view), and the initial terminals are loaded by `Pocetni_Skup_Podataka`. Terminal data is serialized and stored on the Central Registry, one file per terminal.
 
-**Prijava na klijentsku aplikaciju.** Prilikom pokretanja Klijentske aplikacije korisnik bira identifikator ulaza/izlaza, tip kontrole (policijska ili carinska) i naziv terminala. Prvo se putem SOAP-a provjerava da li terminal postoji na Centralnom registru, a zatim se korisničko ime i lozinka provjeravaju putem REST servisa. Nakon prijave dostupan je meni sa opcijama za odjavu, promjenu lozinke i pregled evidencije provjerenih putnika.
+**Client application login.** When the Client Application starts, the user selects the entry/exit point ID, the control type (police or customs) and the terminal name. The application first checks via SOAP that the terminal exists on the Central Registry, then verifies the username and password through a REST service. After login, a menu offers logout, password change and viewing the record of checked passengers.
 
-**Chat.** Klijentske aplikacije komuniciraju međusobno preko sigurnog (TLS) soket kanala ka Chat serveru, uz tri vida slanja poruka: pojedinačnom ulazu/izlazu, svim ulazima/izlazima jednog terminala (multicast) i svim ulazima/izlazima u sistemu (broadcast).
+**Chat.** Client applications talk to each other through a TLS-secured socket channel to the Chat Server, with three ways of addressing messages: a single entry/exit point, all entry/exit points of one terminal (multicast), and all entry/exit points in the system (broadcast).
 
-**Promjena lozinke.** Za razliku od ostalih korisničkih podataka, promjena lozinke se ne vrši posredno preko Administratorske aplikacije — Klijentska aplikacija ažurira lozinku direktno.
+**Password change.** User accounts are managed by the Administrator Application, while the Client Application changes the password itself, without going through the Administrator Application.
 
-**Simulacija prelaska granice.** Testna aplikacija simulira dolazak osobe na odabrani ulaz/izlaz. Nakon provjere da terminal postoji (SOAP), simulacija prvo prolazi kroz policijsku kontrolu: identifikator osobe se putem RMI-ja provjerava u Registru potjernica. Ako je osoba na potjernici, svim ulazima/izlazima terminala šalje se obavještenje (multicast) o privremenom zatvaranju prelaza, sve dok se osoba ne procesira na tom policijskom ulazu — tada se ostalim ulazima/izlazima šalje obavještenje da je rad nastavljen. Ako je osoba prošla policijsku kontrolu, na carinskom dijelu prilaže dokumente, koji se putem RMI-ja šalju na Fajl server i tamo čuvaju kompresovano (ZIP), radi smanjenja količine prenesenih podataka.
+**Border crossing simulation.** The Test Application simulates a person arriving at a selected entry/exit point. After checking that the terminal exists (SOAP), the simulation first goes through police control: the person's identifier is checked against the Warrant Register via RMI. If the person is wanted, a multicast notification that the crossing is temporarily closed is sent to all entry/exit points of the terminal, until the person has been processed at that police entry/exit point — then the other entry/exit points are notified that work has resumed. If the person passes police control, they submit documents at the customs stage; these are sent via RMI to the File Server and stored there compressed (ZIP).
 
-**Administracija.** Administratorska aplikacija, pored upravljanja terminalima i korisničkim nalozima, omogućava i preuzimanje evidencije svih detektovanih osoba sa potjernica i priloženih carinskih dokumenata putem REST servisa.
+**Administration.** Besides managing terminals and user accounts, the Administrator Application can download, through a REST service, the records of all detected wanted persons and of the submitted customs documents.
 
-## Bezbjednost
+## Security
 
-- **Lozinke** se ne čuvaju u čistom tekstu — heširaju se algoritmom **PBKDF2WithHmacSHA512** (10 000 iteracija, ključ dužine 256 bita) uz jedinstveni salt po korisniku, a rezultat se kodira u Base64 prije čuvanja u Redis-u.
-- **Chat komunikacija** ide preko TLS-a (secured socket), uz Java keystore/truststore (`.jks`).
-- Sav pristup terminalima, korisnicima i osjetljivim evidencijama ide kroz provjeru identiteta prije izvršenja operacije.
+- **Passwords** are not stored in plain text. They are hashed with **PBKDF2WithHmacSHA512** (10,000 iterations, 256-bit key) using a unique salt per user, and the result is Base64-encoded before it is stored in Redis.
+- **Chat communication** goes over TLS (secured socket), using a Java keystore/truststore (`.jks`).
+- **Application access:** the Administrator and Client applications require a username and password.
 
-## Serijalizacija i čuvanje podataka
+## Serialization and data storage
 
-U skladu sa zahtjevom da se implementiraju najmanje četiri načina serijalizacije, terminali na Centralnom registru se serijalizuju ciklično kroz četiri formata (1. terminal → GSON/JSON, 2. → Kryo, 3. → Java native, 4. → XML, 5. → GSON ponovo, itd.), svaki u zasebnom fajlu (`id_XXX__tip_FORMAT.out`).
+Following the task requirement to implement at least four serialization methods, terminals on the Central Registry are serialized cyclically through four formats (1st terminal → GSON/JSON, 2nd → Kryo, 3rd → Java native, 4th → XML, 5th → GSON again, and so on), each in its own file (`id_XXX__tip_FORMAT.out`).
 
-Ostali podaci se čuvaju odvojeno, u skladu sa njihovom prirodom:
+All other data is stored separately, according to its nature:
 
-| Podatak | Format | Lokacija |
+| Data | Format | Location |
 |---|---|---|
-| Terminali | GSON / Kryo / Java native / XML (rotirajuće) | `Centralni_Registar/.../terminals` |
-| Evidencija provjerenih putnika | tekstualna datoteka (append), po terminalu | `Centralni_Registar/.../passings` |
-| Evidencija potjernica (procesirane osobe) | XML | `Centralni_Registar/.../warrants` |
-| Evidencija priloženih dokumenata (metapodaci) | XML | `Centralni_Registar/.../documents` |
-| Sami dokumenti osobe | ZIP arhiva + originalni fajlovi | `File_Server/documents/{terminal}#{prolaz}#{vrijeme}#{redni_broj}` |
-| Korisnički nalozi (kredencijali) | heširano, u ključ-vrijednost obliku | Redis |
+| Terminals | GSON / Kryo / Java native / XML (rotating) | `Centralni_Registar/.../terminals` |
+| Record of checked passengers | text file (append), per terminal | `Centralni_Registar/.../passings` |
+| Warrant record (processed persons) | XML | `Centralni_Registar/.../warrants` |
+| Submitted documents record (metadata) | XML | `Centralni_Registar/.../documents` |
+| Documents submitted by the person | ZIP archive + original files | `File_Server/documents/{terminal}#{prolaz}#{vrijeme}#{redni_broj}` |
+| User accounts (credentials) | hashed, key-value form | Redis |
 
-## Struktura repozitorijuma
+## Repository structure
 
 ```
-├── Administratorska_Aplikacija/   # JavaFX admin GUI + REST/SOAP web modul
-├── Centralni_Registar/            # SOAP + REST web servis, registar terminala i evidencija
+├── Administratorska_Aplikacija/   # JavaFX admin GUI + REST/SOAP web module
+├── Centralni_Registar/            # SOAP + REST web service, terminal registry and records
 ├── Chat_Server/                   # TLS chat server (unicast/multicast/broadcast)
-├── File_Server/                   # RMI servis za prijem i arhiviranje dokumenata
-├── Klijentska_Aplikacija/         # JavaFX klijent za rad na ulazu/izlazu terminala
-├── Pocetni_Skup_Podataka/         # Skripta za popunjavanje početnih podataka
-├── Prelazak_Granice_Servis/       # SOAP servis za simulaciju policijske/carinske kontrole
-├── Registar_Potjernica/           # RMI servis, registar potjernica
-├── Testna_Aplikacija/             # JavaFX aplikacija za simulaciju prelaska granice
-└── Uputstvo/                      # Specifikacija zadatka, uputstvo za pokretanje, napomene
+├── File_Server/                   # RMI service for receiving and archiving documents
+├── Klijentska_Aplikacija/         # JavaFX client for work at a terminal entry/exit point
+├── Pocetni_Skup_Podataka/         # Program for populating initial data
+├── Prelazak_Granice_Servis/       # SOAP service for simulating police/customs control
+├── Registar_Potjernica/           # RMI service, warrant register
+├── Testna_Aplikacija/             # JavaFX application for simulating a border crossing
+└── Uputstvo/                      # Task specification, run instructions, notes
 ```
 
-Svaka od aplikacija koje se pokreću samostalno kao Java aplikacije (`Chat_Server`, `File_Server`, `Registar_Potjernica`, `Klijentska_Aplikacija`, `Testna_Aplikacija`, `Pocetni_Skup_Podataka`) sadrži svoj `config.properties` fajl u `resources/properties`, dok se `Centralni_Registar`, `Administratorska_Aplikacija` i `Prelazak_Granice_Servis` pokreću kao web aplikacije na serveru (npr. Apache Tomcat), uz Apache Axis za SOAP dio.
+Each application that runs standalone as a Java application (`Chat_Server`, `File_Server`, `Registar_Potjernica`, `Klijentska_Aplikacija`, `Testna_Aplikacija`, `Pocetni_Skup_Podataka`) has its own `config.properties` file in `resources/properties`, while `Centralni_Registar`, `Administratorska_Aplikacija` and `Prelazak_Granice_Servis` run as web applications on a server (e.g. Apache Tomcat), with Apache Axis for the SOAP part.
 
-## Pokretanje sistema
+## Running the system
 
-Redoslijed pokretanja komponenti je bitan zbog međusobnih zavisnosti:
+The startup order matters because of dependencies between components:
 
-1. **Redis** — pokrenuti Redis server (podrazumijevano `localhost:6379`)
-2. **Centralni_Registar** — deploy na server (npr. Tomcat)
-3. **Pocetni_Skup_Podataka** — pokrenuti `PocetniPodaci.java` da bi se popunili početni podaci
-4. **Administratorska_Aplikacija** — deploy web dijela na server
-5. **Prelazak_Granice_Servis** — deploy na server
-6. **Chat_Server** — pokrenuti `ChatServer.java`
-7. **File_Server** — pokrenuti `FileServer.java`
-8. **Registar_Potjernica** — pokrenuti `PotjerniceServer.java`
-9. **Administratorska_Aplikacija** (desktop dio) — pokrenuti `PokretanjeAdministrator.java`
-10. **Klijentska_Aplikacija** — pokrenuti `PokretanjeKlijent.java`
-11. **Testna_Aplikacija** — pokrenuti `PokretanjeTest.java`
+1. **Redis** — start the Redis server (`localhost:6379` by default)
+2. **Centralni_Registar** — deploy to the server (e.g. Tomcat)
+3. **Pocetni_Skup_Podataka** — run `PocetniPodaci.java` to populate the initial data
+4. **Administratorska_Aplikacija** — deploy the web part to the server
+5. **Prelazak_Granice_Servis** — deploy to the server
+6. **Chat_Server** — run `ChatServer.java`
+7. **File_Server** — run `FileServer.java`
+8. **Registar_Potjernica** — run `PotjerniceServer.java`
+9. **Administratorska_Aplikacija** (desktop part) — run `PokretanjeAdministrator.java`
+10. **Klijentska_Aplikacija** — run `PokretanjeKlijent.java`
+11. **Testna_Aplikacija** — run `PokretanjeTest.java`
 
-## Kredencijali za testiranje
+## Test credentials
 
-**Administratorska aplikacija**
+**Administrator Application**
 
-| Korisničko ime | Lozinka |
+| Username | Password |
 |---|---|
 | admin | nimda |
 
-**Klijentska aplikacija**
+**Client Application**
 
-| Terminal | Prolaz | Korisničko ime | Lozinka | Kontrola |
+| Terminal | Entry/exit point | Username | Password | Control |
 |---|---|---|---|---|
-| AAA | 101 | Ana | anA | policijska |
-| AAA | 101 | Ena | anE | carinska |
-| AAA | 102 | Ina | anI | policijska |
-| CCC | 105 | Tina | aniT | carinska |
+| AAA | 101 | Ana | anA | police |
+| AAA | 101 | Ena | anE | customs |
+| AAA | 102 | Ina | anI | police |
+| CCC | 105 | Tina | aniT | customs |
 
-**Testna aplikacija**
+**Test Application**
 
-| Terminal | Prolaz |
+| Terminal | Entry/exit point |
 |---|---|
 | AAA | 101 |
 
-## Konfiguracija
+## Configuration
 
-Svi parametri (adrese, portovi, putanje, timeout vrijednosti i sl.) definisani su u `config.properties` fajlovima svake aplikacije, a ne u kodu. Prije pokretanja sistema na drugoj mašini potrebno je provjeriti i po potrebi prilagoditi:
+Parameters (addresses, ports, paths, timeout values, etc.) are set in `config.properties` files. Before running the system on another machine, check and adjust as needed:
 
-- apsolutnu putanju do direktorijuma sa terminalima u konfiguraciji `Centralni_Registar`-a (podrazumijevano je postavljena na razvojno okruženje autora),
-- adrese i portove servisa ako se komponente pokreću na različitim mašinama (podrazumijevano sve radi na `localhost`),
-- lozinke za keystore/truststore korišćene u TLS chat komunikaciji.
-
----
-
-*Projekat je izrađen u okviru predmeta Mrežno i distribuirano programiranje, Elektrotehnički fakultet Banja Luka, 2022. godine.*
+- the absolute path to the terminals directory in the `Centralni_Registar` configuration (by default it points to the author's development environment),
+- service addresses and ports if components run on different machines (everything runs on `localhost` by default),
+- the keystore/truststore passwords used for TLS chat communication.
